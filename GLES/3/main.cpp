@@ -133,7 +133,6 @@ int main(int argc, const char * argv[]) {
 
 	// Finally, we can draw !!!!!
 	SDL_GL_SwapWindow(window);
-
 	SDL_Log("Final window swap [OK]");
 
 
@@ -156,10 +155,10 @@ int main(int argc, const char * argv[]) {
 
 
 	// Cleanup
-	vboFree(triangleVBO);
-	triangleVBO = 0;
-	shaderProgDestroy(shaderProg);
-	shaderProg = 0;
+	//vboFree(triangleVBO);
+	//triangleVBO = 0;
+	//shaderProgDestroy(shaderProg);
+	//shaderProg = 0;
 
 	return EXIT_SUCCESS;
 }
