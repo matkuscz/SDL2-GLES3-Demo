@@ -5,7 +5,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <SDL2/SDL.h>
-#include <SDL_opengles2.h>
+#include <SDL2/SDL_opengles2.h>
 
 #ifdef _MSC_VER
 #pragma warning(disable:4996) // Allow us to use the portable fopen() function without warnings
@@ -99,7 +99,7 @@ static void shaderDestroy(GLuint shaderID) {
 	glDeleteShader(shaderID);
 }
 
-GLuint shaderProgLoad(const char * vertFilename, const char * fragFilename) {
+GLuint shaderProgLoad(const char *vertFilename, const char *fragFilename) {
 	GLuint vertShader = shaderLoad(vertFilename, GL_VERTEX_SHADER);
 	if(!vertShader) {
 		SDL_Log("Couldn't load vertex shader: %s\n", vertFilename);

@@ -38,6 +38,8 @@ int main(int argc, const char * argv[]) {
 		return EXIT_FAILURE;
 	}
 
+	SDL_Log("SDL Init OK");
+
 	atexit(SDL_Quit);
 
 	// Request OpenGL ES 3.0
@@ -48,10 +50,13 @@ int main(int argc, const char * argv[]) {
 	// Double buff
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
+	SDL_Log("GL attribs set [OK]");
 
 
 	// Window
 	window = SDL_CreateWindow("GLES3+SDL2 Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, DISP_WIDTH, DISP_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+
+	SDL_Log("Window created [OK]");
 
 	if(!window) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Couldn't create the main window.", NULL);
@@ -59,6 +64,8 @@ int main(int argc, const char * argv[]) {
 	}
 
 	context = SDL_GL_CreateContext(window);
+
+	SDL_Log("GL context created [OK]");
 
 	if(!context) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Couldn't create an OpenGL context.", NULL);
@@ -73,8 +80,11 @@ int main(int argc, const char * argv[]) {
 	glClearColor(0.3f, 0.1f, 0.85f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	SDL_Log("Color ready...");
+
 	// Update window
 	SDL_GL_SwapWindow(window);
+	SDL_Log("SDL GL Window swap [OK]");
 
 	// Load shader
 	GLuint shaderProg = shaderProgLoad("Simple2D.vert", "Simple2D.frag");
@@ -83,10 +93,13 @@ int main(int argc, const char * argv[]) {
 		return EXIT_FAILURE;
 	}
 
+	SDL_Log("Shader load [OK]");
+
 	// Any draw calls from now will use this shader
 	glUseProgram(shaderProg);
 
 
+	SDL_Log("Shader init [OK]");
 
 	// Create triangle
 	const Vertex vertices[] = {
@@ -104,6 +117,7 @@ int main(int argc, const char * argv[]) {
 	}
 
 
+	SDL_Log("Create VBO's [OK]");
 
 	// Setup for rendering the triangle ( activate the VBO )
 	GLuint positionIdx = 0; // Position is vertex attribute with index 0
@@ -112,12 +126,15 @@ int main(int argc, const char * argv[]) {
 	glVertexAttribPointer(positionIdx, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)0);
 	glEnableVertexAttribArray(positionIdx);
 
+	SDL_Log("GL Buffer setup [OK]");
 	/*
 	 * glBindBuffer() is called, which tells OpenGL that subsequent calls to glVertexAttribPointer()should use triangleVBO. Thus, the glVertexAttribPointer() call sets up the position (positionIdx) to be read from triangleVBO starting at offset 0 (the last parameter: (const GLvoid*)0), with a stride between vertices of sizeof(Vertex) bytes. Finally, the position attribute is enabled with glEnableVertexAttribArray()
 	 */
 
 	// Finally, we can draw !!!!!
 	SDL_GL_SwapWindow(window);
+
+	SDL_Log("Final window swap [OK]");
 
 
 
