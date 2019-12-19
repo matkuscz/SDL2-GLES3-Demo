@@ -103,9 +103,9 @@ int main(int argc, const char * argv[]) {
 
 	// Create triangle
 	const Vertex vertices[] = {
-		{ 0.0f, -0.9f },
-		{ 0.9f, 0.9f },
-		{ -0.9f, 0.9f }
+		{  0.0f  , -0.9f  },
+		{  0.9f  , 0.9f   },
+		{  -0.9f , 0.9f   }
 	};
 
 	GLsizei vertSize = sizeof(vertices[0]);
@@ -120,8 +120,9 @@ int main(int argc, const char * argv[]) {
 	SDL_Log("Create VBO's [OK]");
 
 	// Setup for rendering the triangle ( activate the VBO )
-	GLuint positionIdx = 0; // Position is vertex attribute with index 0
 	// We know that positionIdx is 0 because the vertex shader Simple2D.vert has only one vertex input !!!!!!!!!!!
+	GLuint positionIdx = 0; // Position is vertex attribute with index 0
+	
 	glBindBuffer(GL_ARRAY_BUFFER, triangleVBO);
 	glVertexAttribPointer(positionIdx, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)0);
 	glEnableVertexAttribArray(positionIdx);
@@ -132,11 +133,10 @@ int main(int argc, const char * argv[]) {
 	 */
 
 	// Finally, we can draw !!!!!
+	glDrawArrays(GL_TRIANGLES, 0, numVertices);
 	SDL_GL_SwapWindow(window);
+
 	SDL_Log("Final window swap [OK]");
-
-
-
 
 
 	// User input handling
@@ -153,12 +153,11 @@ int main(int argc, const char * argv[]) {
 	}
 
 
-
 	// Cleanup
-	//vboFree(triangleVBO);
-	//triangleVBO = 0;
-	//shaderProgDestroy(shaderProg);
-	//shaderProg = 0;
+	vboFree(triangleVBO);
+	triangleVBO = 0;
+	shaderProgDestroy(shaderProg);
+	shaderProg = 0;
 
 	return EXIT_SUCCESS;
 }
@@ -185,6 +184,8 @@ GLuint vboCreate(const Vertex * vertices, GLuint numVertices) {
 		SDL_Log("Creating VBO failed, code: %u\n", err);
 		vbo = 0;
 	}
+
+	SDL_Log("VBO: %d\n, vbo");
 
 	return vbo;
 }
