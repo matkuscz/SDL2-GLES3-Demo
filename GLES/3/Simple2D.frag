@@ -1,9 +1,9 @@
 #version 300 es
 
 
-//#ifdef GL_ES
+#ifdef GL_ES
 precision highp float;
-//#endif
+#endif
 
 in vec4 colour;
 
